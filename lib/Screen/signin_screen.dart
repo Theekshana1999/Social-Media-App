@@ -24,9 +24,9 @@ class _SignInScreenState extends State<SignInScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                hexStringToColor('D767B0'),
-                hexStringToColor('BD83DF'),
-                hexStringToColor('3034FF'),
+                Colors.pinkAccent,
+                Colors.purpleAccent,
+                Colors.blueAccent,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomCenter,

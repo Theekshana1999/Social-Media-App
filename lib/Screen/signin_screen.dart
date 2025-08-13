@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/Screen/signup_screen.dart';
 import 'package:login/utils/color_utils.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -171,7 +172,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          print("Navigate to Sign Up");
                           // Navigate to sign up
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpScreen(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Sign Up',

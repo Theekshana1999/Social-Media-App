@@ -2,34 +2,43 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../configuration/dbConnection");
 
 const User = sequelize.define("User", {
-    nic: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+    
+  user_id: { 
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true 
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
+  nic: { 
+    type: DataTypes.STRING, 
+    allowNull: false, 
+    unique: true 
     },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false
+  name: { 
+    type: DataTypes.STRING, 
+    allowNull: false 
     },
-    marriage_Status: { 
-        type: DataTypes.STRING,
-        allowNull: false
+  gender: { 
+    type: DataTypes.ENUM("Male", "Female", "Other"), 
+    allowNull: false 
     },
-    income: {
-        type: DataTypes.FLOAT,
-        allowNull: false
+  marriage_status: { 
+    type: DataTypes.ENUM("Single", "Married"), 
+    allowNull: false 
     },
-    district: {
-        type: DataTypes.STRING,
-        allowNull: false
+  income: { 
+    type: DataTypes.FLOAT, 
+    allowNull: false 
     },
-    other: {
+  district: { 
+    type: DataTypes.STRING, 
+    allowNull: false 
+    },
+  other: {
         type: DataTypes.STRING,
         allowNull: true 
     }
 });
+
+
 
 module.exports = User;

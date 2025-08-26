@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Flutter Social Media App Backend with NODE EXPRESS MYSQL with ORM",
+  "license": "ISC",
+  "author": "Sihina Nimnada",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.3",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7"
+  }
+}

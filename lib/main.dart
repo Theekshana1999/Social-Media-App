@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/Screen/home_screen.dart';
 import 'package:login/Screen/inbox_screen.dart';
 import 'package:login/Screen/myprofile_screen.dart';
 import 'package:login/Screen/otp_screen.dart';
@@ -17,11 +18,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // //Initial Route
+      // initialRoute: '/',
+      routes: {
+        '/signin': (context) => const SignInScreen(),
+        '/signup': (context) => const SignUpScreen(),
+        '/otp': (context) => const OtpScreen(),
+        '/inbox': (context) => const InboxScreen(),
+        '/outbox': (context) => const RequstScreen(),
+        '/myprofile': (context) => const MyProfilePage(),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SignUpScreen(),
+      home: SafeArea(child: const HomeScreen()),
     );
   }
 }

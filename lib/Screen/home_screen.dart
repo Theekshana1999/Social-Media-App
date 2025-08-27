@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:login/Screen/Person_detail_Page.dart';
 import 'package:login/Widgets/ProfileCard.dart';
 import 'package:login/utils/color_utils.dart';
 import '../models/person.dart';
@@ -70,54 +71,60 @@ class HomeScreen extends StatelessWidget {
           print(index);
         },
       ),
-      // 🔍 Search bar always at top
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: SizedBox(
-          
-          height: 40,
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search',
-              suffixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide.none,
+      body: Column(
+        children: [
+          // Search bar fixed
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 40,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
               ),
-              filled: true,
-              
             ),
           ),
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        children: [
-          // // 🔍 Static Search Bar
-          // SizedBox(
-          //   height: 40,
-          //   child: TextField(
-          //     decoration: InputDecoration(
-          //       hintText: 'Search',
-          //       suffixIcon: const Icon(Icons.search),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(15.0),
-          //         borderSide: BorderSide.none,
-          //       ),
-          //       filled: true,
-          //       fillColor: Colors.grey[200],
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(height: 12),
 
-          // Use the reusable card
-          for (final p in persons)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: ProfileCard(person: p),
+          // Scrollable list
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 12.0,
+              ),
+              children: [
+                // for (final p in persons)
+                //   Padding(
+                //     padding: const EdgeInsets.only(bottom: 12),
+                //     child: ProfileCard(person: p),
+                //   ),
+                for (final p in persons)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PersonDetailScreen(person: p),
+                          ),
+                        );
+                      },
+                      child: ProfileCard(person: p),
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );

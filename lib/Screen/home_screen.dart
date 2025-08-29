@@ -112,10 +112,15 @@ class HomeScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () {
+                       
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PersonDetailScreen(person: p),
+                            builder:
+                                (context) => PersonDetailPager(
+                                  persons: persons,
+                                  initialIndex: persons.indexOf(p),
+                                ),
                           ),
                         );
                       },

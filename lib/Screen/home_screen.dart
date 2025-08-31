@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:login/Screen/Person_detail_Page.dart';
+import 'package:login/Screen/person_detail_Page.dart';
 import 'package:login/Widgets/ProfileCard.dart';
-import 'package:login/utils/color_utils.dart';
+
 import '../models/person.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,6 +55,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
         leading: const Icon(Icons.menu),
         title: const Text('Social Media App'),
       ),

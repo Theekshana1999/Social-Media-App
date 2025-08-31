@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       district: 'Galle',
       maritalStatus: 'Unmarried',
       likes: 200,
-      imageAsset: 'images/ishara.jpg',
+      imageAsset: 'assets/images/Ishara.jpg',
       timeAgo: '10 min ago',
     ),
     Person(
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
       district: 'Mawanella',
       maritalStatus: 'Unmarried',
       likes: 200,
-      imageAsset: 'images/Nishu.jpg',
+      imageAsset: 'assets/images/Nishu.jpg',
       timeAgo: '10 min ago',
     ),
     Person(
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
       district: 'Mawanella',
       maritalStatus: 'Unmarried',
       likes: 320,
-      imageAsset: 'images/tharuka.jpg',
+      imageAsset: 'assets/images/Tharuka.jpg',
       timeAgo: '10 min ago',
     ),
   ];
@@ -54,11 +54,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        leading: const Icon(Icons.menu),
+        title: const Text('Social Media App'),
+      ),
+      backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
-        color: hexStringToColor("#8385FF"),
+        // color: hexStringToColor("#8385FF"),
+        color: Color(0xFF8385FF),
         backgroundColor: Colors.transparent,
-
+        height: 60,
         items: const <Widget>[
           Icon(Icons.favorite, size: 30),
           Icon(Icons.chat, size: 30),

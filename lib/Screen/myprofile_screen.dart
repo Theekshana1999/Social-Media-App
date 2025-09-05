@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -49,6 +51,19 @@ class _MyProfilePageState extends State<MyProfilePage> {
   final List<String> educations = ["O/L", "A/L", "Graduate", "Postgraduate"];
   final List<String> incomes = ["< 50,000", "50,000 - 100,000", "100,000+"];
 
+  //
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +83,28 @@ class _MyProfilePageState extends State<MyProfilePage> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage("assets/profile.png"),
+                  // Profile Image
+                  GestureDetector(
+                    onTap: () {
+                      print("Image path is $_image");
+                      //check permission
+                      
+                      _pickImage(ImageSource.gallery);
+                    },
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.grey.shade300,
+                      backgroundImage:
+                          _image != null ? FileImage(_image!) : null,
+                      child:
+                          _image == null
+                              ? const Icon(
+                                Icons.camera_alt,
+                                size: 50,
+                                color: Colors.white,
+                              )
+                              : null,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -100,14 +134,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    items: genders
-                        .map(
-                          (gender) => DropdownMenuItem(
-                            value: gender,
-                            child: Text(gender),
-                          ),
-                        )
-                        .toList(),
+                    items:
+                        genders
+                            .map(
+                              (gender) => DropdownMenuItem(
+                                value: gender,
+                                child: Text(gender),
+                              ),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       setState(() {
                         _selectedGender = val;
@@ -140,9 +175,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       }
                     },
                     controller: TextEditingController(
-                      text: _selectedDate == null
-                          ? ""
-                          : "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}",
+                      text:
+                          _selectedDate == null
+                              ? ""
+                              : "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}",
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -156,9 +192,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    items: districts
-                        .map((d) => DropdownMenuItem(value: d, child: Text(d)))
-                        .toList(),
+                    items:
+                        districts
+                            .map(
+                              (d) => DropdownMenuItem(value: d, child: Text(d)),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       setState(() {
                         _selectedDistrict = val;
@@ -176,9 +215,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    items: statuses
-                        .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                        .toList(),
+                    items:
+                        statuses
+                            .map(
+                              (s) => DropdownMenuItem(value: s, child: Text(s)),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       setState(() {
                         _selectedStatus = val;
@@ -196,9 +238,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    items: educations
-                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                        .toList(),
+                    items:
+                        educations
+                            .map(
+                              (e) => DropdownMenuItem(value: e, child: Text(e)),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       setState(() {
                         _selectedEducation = val;
@@ -216,9 +261,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    items: incomes
-                        .map((i) => DropdownMenuItem(value: i, child: Text(i)))
-                        .toList(),
+                    items:
+                        incomes
+                            .map(
+                              (i) => DropdownMenuItem(value: i, child: Text(i)),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       setState(() {
                         _selectedIncome = val;

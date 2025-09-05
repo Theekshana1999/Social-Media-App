@@ -6,4 +6,5 @@ const sequelize = new Sequelize("Flutter_APP", "root", "",{
 });
 
 
+
 module.exports = sequelize;

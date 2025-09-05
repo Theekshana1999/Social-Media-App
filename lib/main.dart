@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:login/Screen/home_screen.dart';
 import 'package:login/Screen/inbox_screen.dart';
 import 'package:login/Screen/myprofile_screen.dart';
 import 'package:login/Screen/otp_screen.dart';
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SafeArea(child: const HomeScreen()),
+      home: SafeArea(child: const SignInScreen()),
     );
   }
 }

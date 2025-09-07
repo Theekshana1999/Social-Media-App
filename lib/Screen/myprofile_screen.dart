@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:login/Screen/home_screen.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -67,15 +68,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.pinkAccent,
-        title: const Text(
-          "My Profile",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-      ),
       body: Column(
         children: [
           Expanded(
@@ -86,9 +78,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   // Profile Image
                   GestureDetector(
                     onTap: () {
-                      print("Image path is $_image");
-                      //check permission
-                      
                       _pickImage(ImageSource.gallery);
                     },
                     child: CircleAvatar(
@@ -273,7 +262,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       });
                     },
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 16),
                   TextField(
                     controller: _nameController,
                     decoration: InputDecoration(
@@ -283,65 +272,37 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 25),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF8385FF),
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Save the profile details
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Details Saved!")),
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                    },
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-
-          // Save Button
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              onPressed: () {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text("Details Saved!")));
-              },
-              child: const Text(
-                "Save",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
         ],
-      ),
 
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "My profile",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: "Favorite",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.post_add),
-            label: "Add Post",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.send_outlined),
-            label: "Outbox",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail_outline),
-            label: "Inbox",
-          ),
-        ],
+        // Save Button
       ),
     );
   }

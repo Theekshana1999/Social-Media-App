@@ -1,11 +1,12 @@
 const express = require("express");
 const sequelize = require("./configuration/dbConnection");
-const dotenv = require("dotenv");
 
 require("./models/admin.model");
 require("./models/post.model");
 require("./models/user.model");
 
+
+const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 const port = 5000;
@@ -14,11 +15,14 @@ const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 
 
+
 app.use(express.json());
 
 
 app.use('/api/user',userRoutes);
 app.use('/api/post',postRoutes);
+
+
 
 
 

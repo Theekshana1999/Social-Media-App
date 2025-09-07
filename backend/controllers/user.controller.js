@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const {User} = require("../associations/associations");
 const {generateUserToken} = require('../middleware/GenerateToken');
  
 

@@ -12,6 +12,7 @@ class MyProfilePage extends StatefulWidget {
 
 class _MyProfilePageState extends State<MyProfilePage> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _otherDetailsController= TextEditingController();
   String? _selectedGender;
   DateTime? _selectedDate;
   String? _selectedDistrict;
@@ -264,7 +265,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                    controller: _nameController,
+                    controller: _otherDetailsController,
                     decoration: InputDecoration(
                       labelText: "Other Details",
                       border: OutlineInputBorder(

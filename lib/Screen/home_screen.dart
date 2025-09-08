@@ -2,9 +2,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/Screen/add_post.dart';
+import 'package:login/Screen/edit_profile.dart';
 import 'package:login/Screen/feed_screen.dart';
 import 'package:login/Screen/inbox_screen.dart';
-import 'package:login/Screen/myprofile_screen.dart';
 import 'package:login/Screen/request_screen.dart';
 import 'package:login/controllers/navbar_Controller.dart';
 
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 3:
         return const RequestScreen();
       case 4:
-        return const MyProfilePage();
+        return const EditProfile();
       default:
         return const Feed();
     }

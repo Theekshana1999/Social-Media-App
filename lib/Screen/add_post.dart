@@ -390,7 +390,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           // Save the profile details
                           ScaffoldMessenger.of(context)
                               .showSnackBar(
-                                const SnackBar(content: Text("Details Saved!")),
+                                const SnackBar(content: Text("Post Under Review")),
                               )
                               .closed
                               .then((_) {
@@ -405,7 +405,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         }
                       },
                       child: const Text(
-                        "Save",
+                        "Publish",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),

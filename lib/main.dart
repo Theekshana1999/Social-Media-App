@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:login/Screen/inbox_screen.dart';
 import 'package:login/Screen/myprofile_screen.dart';
 import 'package:login/Screen/otp_screen.dart';
-import 'package:login/Screen/outbox_screen.dart';
+import 'package:login/Screen/request_screen.dart';
 import 'package:login/Screen/signin_screen.dart';
 import 'package:login/Screen/signup_screen.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignUpScreen(),
         '/otp': (context) => const OtpScreen(),
         '/inbox': (context) => const InboxScreen(),
-        '/outbox': (context) => const RequstScreen(),
+        '/outbox': (context) => const RequestScreen(),
         '/myprofile': (context) => const MyProfilePage(),
       },
       title: 'Flutter Demo',

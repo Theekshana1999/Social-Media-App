@@ -12,7 +12,7 @@ class MyProfilePage extends StatefulWidget {
 
 class _MyProfilePageState extends State<MyProfilePage> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _otherDetailsController= TextEditingController();
+  final TextEditingController _otherDetailsController = TextEditingController();
   String? _selectedGender;
   DateTime? _selectedDate;
   String? _selectedDistrict;
@@ -177,7 +177,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   DropdownButtonFormField<String>(
                     value: _selectedDistrict,
                     decoration: InputDecoration(
-                      labelText: "District",
+                      labelText: "Home District",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -266,7 +266,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   const SizedBox(height: 16),
                   TextField(
                     controller: _otherDetailsController,
+                    maxLines: 3,
                     decoration: InputDecoration(
+                      alignLabelWithHint: true,
                       labelText: "Other Details",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -285,11 +287,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     onPressed: () {
                       // Save the profile details
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Details Saved!")),
+                        const SnackBar(content: Text("Updated Saved!")),
                       );
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
+
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) =>  HomeScreen(),
+                        ),
                       );
                     },
                     child: const Text(

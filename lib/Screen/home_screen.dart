@@ -5,6 +5,7 @@ import 'package:login/Screen/add_post.dart';
 import 'package:login/Screen/feed_screen.dart';
 import 'package:login/Screen/inbox_screen.dart';
 import 'package:login/Screen/myprofile_screen.dart';
+import 'package:login/Screen/request_screen.dart';
 import 'package:login/controllers/navbar_Controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,10 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return const Feed(); // Home feed
       case 1:
-        return const AddPostScreen();
-      case 2:
         return const InboxScreen();
+      case 2:
+        return const AddPostScreen();
       case 3:
+        return const RequestScreen();
+      case 4:
         return const MyProfilePage();
       default:
         return const Feed();
@@ -49,20 +52,30 @@ class _HomeScreenState extends State<HomeScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.pinkAccent,
           title: const Text(
-            "Add Post",
+            "Inbox",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         );
+
       case 2:
         return AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.pinkAccent,
           title: const Text(
-            "Inbox",
+            "Add Post",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         );
       case 3:
+        return AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.pinkAccent,
+          title: const Text(
+            "Friend Requests",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        );
+      case 4:
         return AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.pinkAccent,
@@ -107,8 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 60,
           items: const <Widget>[
             Icon(Icons.favorite, size: 30),
-            Icon(Icons.add_circle, size: 30),
             Icon(Icons.chat, size: 30),
+            Icon(Icons.add_circle, size: 30),
+            Icon(Icons.request_page, size: 30),
             Icon(Icons.person, size: 30),
           ],
           onTap: navController.changeIndex,

@@ -21,7 +21,15 @@ const User = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    name: {
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    middle_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    last_name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -39,7 +47,7 @@ const User = sequelize.define(
       allowNull: true,
     },
     marriage_status: {
-      type: DataTypes.ENUM("Single", "Married"),
+      type: DataTypes.ENUM("Single", "Married", "Divorced"),
       allowNull: true,
     },
     income: {

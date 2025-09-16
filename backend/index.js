@@ -13,6 +13,7 @@ const port = 5000;
 
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
+const adminRoutes =require('./routes/admin.routes');
 
 
 
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use('/api/user',userRoutes);
 app.use('/api/post',postRoutes);
+app.use('/api/admin',adminRoutes);
 
 
 

@@ -19,6 +19,9 @@ const adminRoutes =require('./routes/admin.routes');
 
 app.use(express.json());
 
+console.log("userRoutes =", userRoutes);
+console.log("postRoutes =", postRoutes);
+console.log("adminRoutes =", adminRoutes);
 
 app.use('/api/user',userRoutes);
 app.use('/api/post',postRoutes);

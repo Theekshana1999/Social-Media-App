@@ -76,12 +76,12 @@ const User = sequelize.define(
     timestamps: false,
 
     hooks: {
-      // hash password before creating user
+      
       beforeCreate: async (user) => {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
       },
-      // hash password before updating if it’s changed
+      
       beforeUpdate: async (user) => {
         if (user.changed("password")) {
           const salt = await bcrypt.genSalt(10);
@@ -95,7 +95,7 @@ const User = sequelize.define(
 
 
 
-// compare password during login
+
 User.prototype.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

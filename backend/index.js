@@ -28,11 +28,6 @@ app.use('/api/post',postRoutes);
 app.use('/api/admin',adminRoutes);
 
 
-
-
-
-
-
 (async () => {
   try {
     await sequelize.sync({ alter: true });

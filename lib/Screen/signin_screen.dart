@@ -22,7 +22,7 @@ class _SignInScreenState extends State<SignInScreen> {
     String phone = _phoneController.text.trim();
     String password = _passwordController.text.trim();
 
-    String url = "http://192.168.100.231:5000/api/user/sign-in";
+    String url = "http://192.168.43.20:5000/api/user/sign-in";
 
     try {
       final response = await http.post(
@@ -40,6 +40,20 @@ class _SignInScreenState extends State<SignInScreen> {
       } else {
         debugPrint("Login failed: ${response.statusCode}");
         debugPrint("Error: ${response.body}");
+        showDialog(
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                title: const Text('Login Failed'),
+                content: const Text('Invalid phone number or password.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
       }
     } catch (e) {
       debugPrint("Exception during login: $e");

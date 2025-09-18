@@ -53,18 +53,43 @@ exports.Signin = async (req, res) => {
   }
 };
 
+exports.getUser = async (req, res) => {
+  const {id} = req.params;
+  try {
+    const user = await User.findByPk(id);
+    if(!user){
+      return res.status(400).json({message:"User Not Found.!"});
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Can't Find User By Id:", error);
+    res.status(500).json({ message: "Can't Find user by id" });
+  }
+}
 
+exports.getAllUser = async (req,res) => {
+  try {
+    const users = await User.findAll();
+    if(!users){
+      return res.status(400).json({message:"Can't find Users"});
+    }
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Can't Get All Users:", error);
+    res.status(500).json({ message: "Can't Get All Users:" });
+  }
+}
 
-exports.EditProfile = async (req,res) => {
+exports.UpdateProfile = async (req,res) => {
    const {id} = req.params;
-   const {falst_name, middle_name, last_name, gender, marriage_status, income, image, district, height, weight } = req.body;
+   const {first_name, middle_name, last_name, gender, marriage_status, income, image, district, height, weight } = req.body;
   try {
     const user = await User.findByPk(id);
     if(!user){
       return res.status(400).json({message:"User Not Found.!"});
     }
 
-    user.falst_name = falst_name ?? user.falst_name;
+    user.first_name = first_name ?? user.first_name;
     user.middle_name = middle_name ?? user.middle_name;
     user.last_name = last_name ?? user.last_name;
     user.gender = gender ?? user.gender;
@@ -83,5 +108,7 @@ exports.EditProfile = async (req,res) => {
     res.status(500).json({ message: "Can't Update Profile user" });
   }
 }
+
+
 
 

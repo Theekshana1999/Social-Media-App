@@ -2,7 +2,10 @@ const { Post, User } = require('../associations/associations');
 
 exports.CreatePost = async (req, res) => {
     try {
-        const post = await Post.create(req.body);
+        const post = await Post.create({
+            ...req.body,
+            image:req.file?.path || null
+        });
         res.status(201).json(post);
     } catch (error) {
         console.error(error);

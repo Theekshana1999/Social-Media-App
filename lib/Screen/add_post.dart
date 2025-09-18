@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:login/Screen/home_screen.dart';
 
@@ -76,6 +78,34 @@ class _AddPostScreenState extends State<AddPostScreen> {
       setState(() {
         _image = File(pickedFile.path);
       });
+    }
+  }
+
+  Future<void> createPost({
+    required String title,
+    required String content,
+  }) async {
+    const String url = 'http://localhost:5000/api/post/create-post';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any auth headers here if needed
+        },
+        body: jsonEncode({'title': title, 'content': content}),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Post created successfully!');
+        print('Response: ${response.body}');
+      } else {
+        print('Failed to create post. Status code: ${response.statusCode}');
+        print('Body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error creating post: $e');
     }
   }
 
@@ -288,7 +318,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     //Job Status
                     TextField(
                       controller: _jobStatusController,
-                      
+
                       decoration: InputDecoration(
                         labelText: "Job Status",
                         border: OutlineInputBorder(
@@ -390,7 +420,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           // Save the profile details
                           ScaffoldMessenger.of(context)
                               .showSnackBar(
-                                const SnackBar(content: Text("Post Under Review")),
+                                const SnackBar(
+                                  content: Text("Post Under Review"),
+                                ),
                               )
                               .closed
                               .then((_) {

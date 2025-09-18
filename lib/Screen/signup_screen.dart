@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:login/utils/api.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -27,12 +28,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       required String phone,
       required String password}
   ) async {
-    const String url =
-        'http://192.168.56.1:5000/api/user/sign-up'; // localhost for Android emulator
+    
 
     try {
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse(API().registerUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "nic": _nicController.text,

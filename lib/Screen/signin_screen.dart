@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:login/Screen/otp_screen.dart';
 import 'package:login/Screen/signup_screen.dart';
 
@@ -10,9 +13,38 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  //login function
+  Future<void> login() async {
+    String phone = _phoneController.text.trim();
+    String password = _passwordController.text.trim();
+
+    String url = "http://192.168.100.231:5000/api/user/sign-in";
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"phone": phone, "password": password}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        debugPrint("Login successful: $data");
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const OtpScreen()),
+        );
+      } else {
+        debugPrint("Login failed: ${response.statusCode}");
+        debugPrint("Error: ${response.body}");
+      }
+    } catch (e) {
+      debugPrint("Exception during login: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,16 +112,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: Column(
                     children: [
-                      // Email Field
+                      // phone Field
                       TextField(
-                        controller: _emailController,
+                        controller: _phoneController,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           prefixIcon: const Icon(
-                            Icons.email,
+                            Icons.phone,
                             color: Colors.grey,
                           ),
-                          hintText: 'Enter Email',
+                          hintText: 'Enter phone',
                           hintStyle: const TextStyle(color: Colors.black54),
                           filled: true,
                           fillColor: Colors.grey[100],
@@ -98,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             borderSide: BorderSide.none,
                           ),
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.phone,
                       ),
                       const SizedBox(height: 20),
 
@@ -156,15 +188,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Handle sign-in logic here
-                            debugPrint("Email: ${_emailController.text}");
-                            debugPrint("Password: ${_passwordController.text}");
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const OtpScreen(),
-                              ),
-                            );
+                            login();
 
+                            // Handle sign-in logic here
+                            debugPrint("phone: ${_phoneController.text}");
+                            debugPrint("Password: ${_passwordController.text}");
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blueAccent,

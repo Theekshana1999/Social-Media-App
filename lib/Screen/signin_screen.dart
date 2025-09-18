@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:login/Screen/otp_screen.dart';
 import 'package:login/Screen/signup_screen.dart';
+import 'package:login/utils/api.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -22,11 +23,9 @@ class _SignInScreenState extends State<SignInScreen> {
     String phone = _phoneController.text.trim();
     String password = _passwordController.text.trim();
 
-    String url = "http://192.168.43.20:5000/api/user/sign-in";
-
     try {
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse(API().loginUrl),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"phone": phone, "password": password}),
       );

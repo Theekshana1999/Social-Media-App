@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,12 +13,46 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nicController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   bool _obscurePassword = true;
+
+  /// Signs up a user by sending a POST request to the backend.
+  Future<void> signUpUser(
+      {required String nic,
+      required String phone,
+      required String password}
+  ) async {
+    const String url =
+        'http://192.168.56.1:5000/api/user/sign-up'; // localhost for Android emulator
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "nic": _nicController.text,
+          "phone": _phoneController.text,
+          "password": _passwordController.text,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Sign-up successful!');
+        print('Response: ${response.body}');
+      } else {
+        print('Failed to sign up. Status code: ${response.statusCode}');
+        print('Error body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error signing up: $e');
+    }
+    print(_nicController.text + _phoneController.text + _passwordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +151,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                             hintText: 'Enter Phone Number',
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.8),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        // NIC
+                        TextField(
+                          controller: _nicController,
+                          keyboardType: TextInputType.text,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.perm_identity,
+                              color: Colors.grey,
+                            ),
+                            hintText: 'Enter your NIC',
                             filled: true,
                             fillColor: Colors.white.withOpacity(0.8),
                             border: OutlineInputBorder(
@@ -229,6 +287,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         String password = _passwordController.text;
                         String confirmPassword =
                             _confirmPasswordController.text;
+                        String nic = _nicController.text.trim();
 
                         // Basic validation
                         if (name.isEmpty) {
@@ -273,14 +332,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         }
 
                         // All fields are valid
-                        debugPrint('Name: $name');
-                        debugPrint('Phone: $phone');
-                        debugPrint('Email: $email');
-                        debugPrint('Password: $password');
+                        // debugPrint('Name: $name');
+                        // debugPrint('Phone: $phone');
+                        // debugPrint('Email: $email');
+                        // debugPrint('Password: $password');
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Sign Up Successful!')),
-                        );
+                        // Call the sign-up function
+
+                        signUpUser(nic: nic, phone: phone, password: password);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -321,38 +380,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
+
                   // const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.facebook, size: 35,color: Colors.blue,),
-                          onPressed: () {
-                            // Handle Facebook sign up
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.g_mobiledata, size: 35),
-                          onPressed: () {
-                            // Handle Google sign up
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+
+                  //     Container(
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //       child: IconButton(
+                  //         icon: const Icon(Icons.facebook, size: 35,color: Colors.blue,),
+                  //         onPressed: () {
+                  //           // Handle Facebook sign up
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: 12),
+                  //     Container(
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //       child: IconButton(
+                  //         icon: const Icon(Icons.g_mobiledata, size: 35),
+                  //         onPressed: () {
+                  //           // Handle Google sign up
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

@@ -44,6 +44,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Sign-up successful!');
         print('Response: ${response.body}');
+        // Navigate to another screen or show a success message
+        Navigator.pushReplacementNamed(context, '/signin');
+        
       } else {
         print('Failed to sign up. Status code: ${response.statusCode}');
         print('Error body: ${response.body}');

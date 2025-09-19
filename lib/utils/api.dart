@@ -3,4 +3,5 @@ class API {
 
   String get registerUrl => '$baseUrl/api/user/sign-up';
   String get loginUrl => '$baseUrl/api/user/sign-in';
+  String get updateProfile => '$baseUrl/api/user/update-profile/';
 }

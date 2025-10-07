@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:login/Screen/otp_screen.dart';
 import 'package:login/Screen/signup_screen.dart';
+import 'package:login/controllers/userdata_controller.dart';
 import 'package:login/utils/api.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+   final UserDataController userDataController = Get.put(UserDataController());
 
   //login function
   Future<void> login() async {
@@ -33,6 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         debugPrint("Login successful: $data");
+       userDataController.loggedInUserId.value = data['user']['id'];
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const OtpScreen()),
         );

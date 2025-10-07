@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } catch (e) {
       print('Error signing up: $e');
     }
-    print(_nicController.text + _phoneController.text + _passwordController.text);
+    // Removed insecure logging of sensitive user data.
   }
 
   @override

@@ -1,27 +1,31 @@
 const express = require("express");
 const sequelize = require("./configuration/dbConnection");
-const dotenv = require("dotenv");
 
 require("./models/admin.model");
 require("./models/post.model");
 require("./models/user.model");
 
+
+const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 const port = 5000;
 
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
+const adminRoutes =require('./routes/admin.routes');
+
 
 
 app.use(express.json());
 
+console.log("userRoutes =", userRoutes);
+console.log("postRoutes =", postRoutes);
+console.log("adminRoutes =", adminRoutes);
 
 app.use('/api/user',userRoutes);
 app.use('/api/post',postRoutes);
-
-
-
+app.use('/api/admin',adminRoutes);
 
 
 (async () => {

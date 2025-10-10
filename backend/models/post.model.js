@@ -10,7 +10,7 @@ const Post = sequelize.define('Post', {
         autoIncrement: true
     },
     post_status: {
-        type: DataTypes.ENUM("Pending", "Approve"),
+        type: DataTypes.ENUM("Pending", "Approve","Hold"),
         defaultValue: "Pending",
         allowNull: false
     },

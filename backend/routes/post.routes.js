@@ -10,4 +10,6 @@ router.get('/get-post/:id', PostControler.GetPostsById);
 router.post('/status/:id', verifyAdmin, PostControler.UpdatePostStatus);
 
 
+// patch
+
 module.exports = router;

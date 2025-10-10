@@ -13,19 +13,20 @@ const User = sequelize.define(
     },
     nic: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      unique: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
       unique: true,
     },
     first_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    middle_name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -35,11 +36,16 @@ const User = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.ENUM("Pending","verify"),
+      defaultValue: "Pending",
+      allowNull: true
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: "user",
     },
     gender: {
@@ -68,6 +74,14 @@ const User = sequelize.define(
     },
     weight: {
       type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    verifyOTP: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    verifyOTPExpires: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
   },

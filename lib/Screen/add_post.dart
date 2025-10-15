@@ -94,7 +94,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
           'Content-Type': 'application/json',
           // Add any auth headers here if needed
         },
-        body: jsonEncode({'title': title, 'content': content}),
+        body: jsonEncode(
+          {
+            "other_details": _otherDetailsController.text,
+            "current_living": _selectedDistrict,
+            "education": _selectedEducation,
+            "user_id": 1,
+          },
+        ),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
